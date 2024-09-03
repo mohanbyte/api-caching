@@ -14,18 +14,7 @@ export class CachingInterceptor implements HttpInterceptor {
   constructor(private cacheService: CacheService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
-    if (req.method == 'DELETE' || req.method == 'POST') {
-      if (req.url.includes('/api/account/devices'))
-        this.cacheService.deleteCache(
-          this.generateDeleteURL('/api/account/devices')
-        );
-      else if (req.url.includes('/api/account/load-entities-gen')) {
-        this.cacheService.deleteCache(
-          this.generateDeleteURL('/api/account/load-entities-gen')
-        ); //Generated Hash will always be same.
-      }
-      return next.handle(req);
-    }
+    if (this.updateCache(req)) return next.handle(req);
     const cacheKey = this.createCacheKey(req.urlWithParams, req.body);
     const cachedResponse = this.cacheService.getCache(cacheKey);
     console.log(cacheKey);
@@ -40,6 +29,21 @@ export class CachingInterceptor implements HttpInterceptor {
         }
       })
     );
+  }
+  private updateCache(req: any) {
+    if (req.method == 'DELETE' || req.method == 'POST') {
+      if (req.url.includes('/api/account/devices'))
+        this.cacheService.deleteCache(
+          this.generateDeleteURL('/api/account/devices')
+        );
+      else if (req.url.includes('/api/account/load-entities-gen')) {
+        this.cacheService.deleteCache(
+          this.generateDeleteURL('/api/account/load-entities-gen')
+        ); //Generated Hash will always be same.
+      }
+      return true;
+    }
+    return false;
   }
   private createCacheKey(url: string, body: any): string {
     const bodyHash = this.simpleHash(JSON.stringify(body)).toString(); // with hash we can do it with only small key
