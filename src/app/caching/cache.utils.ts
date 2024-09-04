@@ -6,6 +6,7 @@ type CachePattern = {
 // Object of cache patterns
 const CACHE_PATTERNS: { [method: string]: CachePattern[] } = {
   GET: [
+    { urlPattern: /^https?:\/\/[^\/]+\/todos$/ },
     { urlPattern: /^\/api\/account\/devices$/ },
     { urlPattern: /^\/api\/account\/load-entities$/ },
     { urlPattern: /^\/api\/account\/load-entities-gen$/ },
