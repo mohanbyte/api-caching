@@ -1,1 +1,41 @@
-{{ result | json }}
+<!-- app.component.html -->
+<div
+  class="api-data"
+  style="
+    border: 1px solid #ccc;
+    padding: 10px;
+
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+    text-align: center;
+  "
+>
+  <!-- Buttons -->
+  <button
+    (click)="updateData()"
+    style="
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-bottom: 4px;
+    "
+  >
+    Fetch Data
+  </button>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading" style="color: #007bff; font-weight: bold">
+    Loading...
+  </div>
+  <div class="container" *ngIf="!isLoading">
+    <div *ngFor="let item of data" class="card">
+      <h3>{{ item.title }}</h3>
+      <p>{{ item.body }}</p>
+      <small>User ID: {{ item.userId }} | ID: {{ item.id }}</small>
+    </div>
+  </div>
+</div>

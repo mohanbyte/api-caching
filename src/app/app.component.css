@@ -1,0 +1,33 @@
+.card {
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin: 8px 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin: 8px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1 1 calc(20.333% - 16px);
+}
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+h3 {
+  margin: 0 0 8px;
+  font-size: 1.25em;
+  color: #333;
+}
+
+p {
+  margin: 0 0 8px;
+  font-size: 1em;
+  color: #666;
+}
+
+small {
+  font-size: 0.875em;
+  color: #999;
+}
